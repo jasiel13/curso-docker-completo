@@ -1,0 +1,69 @@
+yum install libtool perl-core zlib-devel -y
+curl -O -L https://www.openssl.org/source/openssl-1.0.2p.tar.gz
+tar -xzvf openssl-1.0.2p.tar.gz
+cd openssl-1.0.2p/
+yum install make
+./config
+ make
+make test
+make install
+cd /usr/local/ssl/
+ls -l
+cd /etc/ld.so.conf.d/
+
+abres el docuemto
+vi /etc/ld.so.conf.d/openssl-1.0.2p.conf
+
+tecleas l e insertas esto:
+/usr/local/openssl/lib
+guardas :wq 
+
+ldconfig -v
+
+abres documento:
+vi /etc/profile.d/openssl.sh
+
+tecla l insertas esto:
+
+#Set OPENSSL_PATH 
+OPENSSL_PATH = "/ usr / local / ssl / bin" 
+export OPENSSL_PATH 
+PATH = $ PATH: $ OPENSSL_PATH 
+export PATH
+
+guardas "esc" :wq
+
+
+chmod +x /etc/profile.d/openssl.sh
+source /etc/profile.d/openssl.sh
+echo $PATH
+openssl version -a
+openssl version 
+
+yum install mod_ssl openssl
+crear archivo
+vi ssl.conf
+
+insertar con telca l
+<VirtualHost *:443>
+ ServerName localhost
+ DocumentRoot /var/www/html
+ SSLEngine on
+ SSLCertificateFile /docker.crt
+ SSLCertificateKeyFile /docker.key
+ </VirtualHost>
+
+guardar :wq
+
+mandar el archivo en la ruta
+cp ssl.conf /etc/httpd/conf.d/default.conf
+
+salir de un directorio 
+cd ../../
+
+https://blacksaildivision.com/how-to-install-openssl-on-centos
+https://www.tecmint.com/install-openssl-from-source-in-centos-ubuntu/
+https://blog.desdelinux.net/usando-vim-tutorial-basico/
+https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/
+http://www.oscarbernal.net/index.php?/content/view/34/20/
+https://www.digicert.com/ssl-support/apache-multiple-ssl-certificates-using-sni.htm
