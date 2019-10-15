@@ -1,0 +1,22 @@
+version: '3'
+services:
+  drupal:
+    volumes:
+      - drupal:/var/www/html
+    image: drupal
+    ports:
+      - 80:80
+    networks:
+      - net
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - $PWD/data:/var/lib/postgresql
+    networks:
+      - net
+volumes:
+  drupal:
+networks:
+  net:
