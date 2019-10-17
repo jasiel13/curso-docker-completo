@@ -4,10 +4,10 @@ services:
     container_name: guacamole-db
     networks:
       - net
-    image: mysql:5.7
+    image: mysql:latest
     volumes:
-      - $PWD/conf/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
-      - $PWD/data:/var/lib/mysql
+      - ./conf/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./data:/var/lib/mysql
     env_file: .env
   daemon:
     container_name: guacamole-daemon
